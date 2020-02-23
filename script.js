@@ -1,19 +1,21 @@
 var generateBtn = document.querySelector("#generate");
 var letters = "abcdefghijklmnopqrstuvwxyz"
-var specials = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
+// var specialChars = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
+var specialChars = "!@#$%^&*()"
 var numbers = "1234567890"
 
-var passwordLength = parseInt(prompt("How many characters?"))
+var passwordLength = parseInt(prompt("How many characters? It must be between 8 and 128 characters."))
 var choices = {
   uppercase: false,
   lowercase: false,
-  specialCharacter: false,
-  number: false
+  specialChars: false,
+  numbers: false
 }
+
 choices.uppercase = confirm("Do you want to include uppercase?")
 choices.lowercase = confirm("Do you want to include lowercase?")
-choices.specialCharacter = confirm("Do you want to include special characters?")
-choices.number = confirm("Do you want to include numbers?")
+choices.specialChars = confirm("Do you want to include special characters?")
+choices.numbers = confirm("Do you want to include numbers?")
 
 var bowl = ""
 function generatePassword() {
@@ -24,26 +26,24 @@ function generatePassword() {
   if(choices.lowercase) {
     bowl+=letters.toLowerCase()
   }
-  // if(choices.specialCharacter) {
-  // bowl+=letters.toSp()
+  if(choices.specialchar) {
+    bowl+=letters
   }
-  if(choices.number) {
-    bowl+=letters.toNumber()
+  if(choices.numbers) {
+    bowl+=numbers
   }
+
   for(var i = 0; i < passwordLength; i++) {
-    password += bowl.charAt(Math.floor(Math.random() * bowl.length))   
+    password+=bowl.charAt(Math.floor(Math.random() * bowl.length))   
   }
  return password
 }
 
-// Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
+  
   passwordText.value = password;
-
 }
 
-// Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
